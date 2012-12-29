@@ -2,7 +2,7 @@
 var mp = {
   is_random: false,
   is_repeat: false,
-  index: 0,
+  index: "first-play",
   play_song: function(idx)
   {
     mp.index = idx
@@ -87,15 +87,19 @@ var mp = {
   },
   play: function() 
   {
-    $("#jquery_jplayer_1").jPlayer("play");
+    if( mp.index == "first-play" ) {
+      mp.play_song(0)
+    } else {
+      $("#jquery_jplayer_1").jPlayer("play")
+    }
   },
   pause: function()
   {
-    $("#jquery_jplayer_1").jPlayer("pause");
+    $("#jquery_jplayer_1").jPlayer("pause")
   },
   random: function()
   {
-    mp.is_random = !mp.is_random;
+    mp.is_random = !mp.is_random
     if( mp.is_random ) {
       $("#random").html("Random")
     } else {
@@ -104,7 +108,7 @@ var mp = {
   },
   repeat: function()
   {
-    mp.is_repeat = !mp.is_repeat;
+    mp.is_repeat = !mp.is_repeat
     if( mp.is_random ) {
       $("#repeat").html("Repeat")
     } else {

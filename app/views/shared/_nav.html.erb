@@ -1,5 +1,3 @@
 <% items = nav_items %>
 <%= render items.shift %>
-<% items.each {|item| %>
-  | <%= render item %>
-<% } %>
+<% items.each {|item| %> | <%= render item %> <% } %>

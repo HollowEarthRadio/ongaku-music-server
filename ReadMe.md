@@ -3,7 +3,7 @@ Ongaku Music Server
 
 The Ongaku Music Server is a web-based music player inspired by Grooveshark.  I wrote this because I wanted to be able
 to have a streaming music server that I controlled what music was available.  If you find this software useful, please fork
-this project on github (http://
+this project on github (https://github.com/teknomunk/ongaku-music-server).
 
 Features
 --------
@@ -11,6 +11,8 @@ Features
 * Play uploaded MP3 files in any browser that supports Flash and/or HTML 5 audio (via jPlayer)
 * Edit common MP3 file tags in browser.
 * Songs organized into artist and album playlists.
+* Allow placeholders for songs that have no associated MP3.
+* Plugin support for expanding functionality without modifying core code.
 
 License
 -------
