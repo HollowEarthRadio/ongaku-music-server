@@ -1,0 +1,36 @@
+<table width=100%>
+  <tr>
+    <th></th>
+    <th>Name</th>
+    <th>Artist</th>
+    <th>Album</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% idx = 0 %>
+<% songs.each_with_index do |song,i| %>
+  <% if song.has_media? %>
+    <tr class='songs <%= (i%2==0) ? "even-song" : "odd-song" %>' id='song_<%=idx%>'>
+      <td>
+        <%= jplayer_play_index(idx) %>
+        <% idx += 1 %>
+  <% else %>
+    <tr class='songs <%= (i%2==0) ? "even-song" : "odd-song" %>'>
+      <td>
+  <% end %>
+    </td>
+    <td><%= link_to song.name, song %></td>
+    <td><%= song_artist_link( song ) %></td>
+    <td><%= song_album_link( song ) %> (<%= song.disk ? "D#{song.disk}" : "" %>T<%=song.track%>)</td>
+    <td class='spacer'></td>
+    <td><%= rating( song ) %></td>
+    <td><%= rate_up(song) %><br/><%= rate_down(song) %></td>
+    <td><%= link_to 'Destroy', song, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= render 'shared/player', :songlist => songs %>

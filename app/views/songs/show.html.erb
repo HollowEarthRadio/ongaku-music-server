@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name:</b>
+  <%= @song.name %>
+</p>
+
+<p>
+  <b>Artist:</b>
+  <%= song_artist_link( @song ) %>
+</p>
+
+<p>
+  <b>Album:</b>
+  <%= song_album_link( @song ) %>
+</p>
+
+<p>
+  <b>Album Artist:</b>
+  <%= @song.album_artist_name %>
+</p>
+
+<p>
+  <b>Download link:</b>
+  <a href="/media/<%= @song.media_filename %>">file</a>
+</p>
+
+<h1>Media Tags</h1>
+<p>
+  <ul>
+  <% @song.tags.each do |tag| %>
+    <li><%= tag[0] %>: <%= tag[1] %></li>
+  <% end %>
+  </ul>
+</p>
+
+<script type="text/javascript">
+</script>
+<%= render "shared/player" %>
+
+<p>
+  Add to playlist:<br/>
+  <% Playlist.find(:all).each {|playlist| %>
+    <form id='add_playlist_entry_<%= playlist.id %>' method='post' action='/playlist_entries'>
+      <input type='hidden' name='song_id' value='<%= @song.id %>' />
+      <input type='hidden' name='playlist_id' value='<%= playlist.id %>' />
+      <a href='#' onclick='$("#add_playlist_entry_<%= playlist.id %>").submit()'
+        >Add to <%= playlist.title %></a>
+    </form>
+  <% } %>
+</p>
+
+<%= link_to 'Edit', edit_song_path(@song) %> |
+<%= link_to 'Back', songs_path %>

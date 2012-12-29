@@ -1,0 +1,3 @@
+<% @songs.each {|song| %>
+  <%= link_to song.name, "/media/#{song.media_filename}" %><br/>
+<% } %>

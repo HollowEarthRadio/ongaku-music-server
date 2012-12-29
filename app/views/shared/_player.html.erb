@@ -1,0 +1,159 @@
+<script>
+var mp = {
+  is_random: false,
+  is_repeat: false,
+  index: 0,
+  play_song: function(idx)
+  {
+    mp.index = idx
+    player = $("#jquery_jplayer_1")
+
+    // Update the current song
+    player.jPlayer("setMedia", {
+      mp3: "/media/" + songs[mp.index].media_filename,
+    })
+
+    // Start playing the new song
+    player.jPlayer("play")
+  },
+  on_song_finished: function()
+  {
+    $(".song_playing").removeClass("song_playing")
+
+    var continue_play = false;
+
+    if( mp.is_random ) {
+      mp.index = Math.floor( Math.random() * songs.length )
+      continue_play = true
+    } else {
+      // Advance to the next song in the playlist
+      mp.index = mp.index + 1
+
+      // Handle the end of the playlist
+      if( mp.index == songs.length ) {
+
+        // Wrap around to the start if repeat is selected
+        if( mp.is_repeat ) { 
+          mp.index = 0
+          continue_play = true
+        }
+
+      // Otherwise, allow play to stop
+      } else {
+        continue_play = true
+      }
+    }
+
+    // If play is to continue, load the next song and start it
+    if( continue_play ) {
+      mp.play_song(mp.index)
+    }
+  },
+  on_song_played: function()
+  {
+    $(".song_playing").removeClass("song_playing")
+    $("#song_"+mp.index).addClass("song_playing")
+
+    window.location.hash = "song_"+mp.index;
+
+    $("#now_playing").text(
+      "Now Playing: " +
+      songs[mp.index].artist_name + " - " +
+      songs[mp.index].name
+    )
+  },
+  on_time_update: function(event)
+  {
+    $("#time").text( 
+      $.jPlayer.convertTime(event.jPlayer.status.currentTime) + 
+      "/" +
+      $.jPlayer.convertTime(event.jPlayer.status.duration)
+    );
+  },
+  init: function() 
+  {
+    player = $("#jquery_jplayer_1")
+
+    // Setup the player
+    player.jPlayer({
+      swfPath: "/flash/",
+      supplied: "mp3"
+    })
+
+    // Setup player events
+    player.bind( $.jPlayer.event.play, mp.on_song_played )
+    player.bind( $.jPlayer.event.ended, mp.on_song_finished )
+    player.bind( $.jPlayer.event.timeupdate, mp.on_time_update )
+  },
+  play: function() 
+  {
+    $("#jquery_jplayer_1").jPlayer("play");
+  },
+  pause: function()
+  {
+    $("#jquery_jplayer_1").jPlayer("pause");
+  },
+  random: function()
+  {
+    mp.is_random = !mp.is_random;
+    if( mp.is_random ) {
+      $("#random").html("Random")
+    } else {
+      $("#random").html("<s>Random</s>")
+    }
+  },
+  repeat: function()
+  {
+    mp.is_repeat = !mp.is_repeat;
+    if( mp.is_random ) {
+      $("#repeat").html("Repeat")
+    } else {
+      $("#repeat").html("<s>Repeat</s>")
+    }
+  },
+  rate_up_playing: function()
+  {
+    $.ajax({
+      url: "<%= raw(song_rate_up_path("%%%", :format => :json).gsub("%%%","\"+songs[mp.index].id+\"")) %>",
+      success: update_rating,
+      type: "POST",
+    })
+  },
+  rate_down_playing: function()
+  {
+    $.ajax({
+      url: "<%= raw(song_rate_down_path("%%%", :format => :json).gsub("%%%","\"+songs[mp.index].id+\"")) %>",
+      success: update_rating,
+      type: "POST",
+    })
+  },
+};
+
+$(document).ready(mp.init);
+
+<% songlist ||= [] %>
+var songs = [
+  <% songlist.each do |song| %>
+    <% if song.media_filename and song.media_filename != "" %>
+      <%= raw(song.to_json) %>,
+    <% end %>
+  <% end %>
+]
+</script>
+<div class="player_container" width="15%">
+  <div id="jquery_jplayer_1"></div>
+  <div id="jp_container_1"></div>
+  
+  <div id='controls'>
+    Media Player<br/>
+    <a href='#' onclick='mp.play();return false;'>Play</a>
+    | <a href='#' onclick='mp.pause();return false;'>Pause</a>
+    | <a href='#' id='random' onclick='mp.random();return false;'><s>Random</s></a>
+    | <a href='#' id='repeat' onclick='mp.repeat();return false;'><s>Repeat</s></a>
+    | <a href='#' onclick="mp.on_song_finished();return false;">Next</a>
+    <div width='10em' id='time'></div>
+    <a onclick='mp.rate_up_playing();  return false;'><%=image_tag("rate_up.png",   :alt => "+", :size => "16x16")%></a>
+    <a onclick='mp.rate_down_playing();return false;'><%=image_tag("rate_down.png", :alt => "-", :size => "16x16")%></a>
+  </div>
+  <div id='now_playing'></div>
+</div>

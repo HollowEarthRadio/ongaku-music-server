@@ -1,0 +1,5 @@
+#EXTM3U
+<% @songs.each {|song| %>
+#EXTINF:400,<%= song.artist_name %> - <%= song.name %>
+http://68.97.164.77:3000/media/<%= song.media_filename %>
+<% } %>

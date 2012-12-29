@@ -1,0 +1,27 @@
+/*
+  Place all the styles related to the matching controller here.
+  They will automatically be included in application.css.
+*/
+
+td.spacer
+{
+  width: 50px;
+}
+
+tr.songs:hover
+{
+  background-color: #CCC;
+}
+tr.even-song
+{
+  background-color: #EEE;
+}
+tr.song_playing {
+  background-color: #ADD;
+}
+
+td
+{
+  padding: 0px;
+  border-spacing: 0px;
+}

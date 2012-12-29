@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Title:</b>
+  <%= @playlist.title %>
+</p>
+
+<ol>
+  <% @playlist.playlist_entries.each_with_index {|entry,i| %>
+  <li id='song_<%=i%>'>
+    <%= link_to "#{entry.song.artist} - #{entry.song.name}", entry.song %>
+    <%= link_to "Remove", entry, method: :delete %>
+  </li>
+  <% } %>
+</ol>
+
+<script type="text/javascript">
+var songs = [
+  <% @playlist.playlist_entries.each {|entry|%>
+    "/media/<%= entry.song.media_filename %>",
+  <% } %>
+];
+</script>
+<%= render 'shared/player' %>
+
+<%= link_to 'Edit', edit_playlist_path(@playlist) %> |
+<%= link_to 'Back', playlists_path %>
