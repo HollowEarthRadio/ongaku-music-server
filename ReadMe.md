@@ -17,7 +17,7 @@ Features
 License
 -------
 
-This software may be redistributed under the GNU Public License (v2).
+This software is copywrite 2012 Bradley C. Pesicka, but may be redistributed under the GNU Public License (v2).
 A copy of this license can be found in GPL\_v2.txt.
 
 Code and Asset Licensing
@@ -90,4 +90,5 @@ project.  This code is licensed under the GPL Version 2.
     The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
     THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
 
