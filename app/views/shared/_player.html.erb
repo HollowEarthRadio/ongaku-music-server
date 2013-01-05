@@ -20,7 +20,7 @@ var mp = {
   {
     $(".song_playing").removeClass("song_playing")
 
-    var continue_play = false;
+    var continue_play = false
 
     if( mp.is_random ) {
       mp.index = Math.floor( Math.random() * songs.length )
@@ -54,7 +54,7 @@ var mp = {
     $(".song_playing").removeClass("song_playing")
     $("#song_"+mp.index).addClass("song_playing")
 
-    window.location.hash = "song_"+mp.index;
+    window.location.hash = "song_"+mp.index
 
     $("#now_playing").text(
       "Now Playing: " +
@@ -68,7 +68,7 @@ var mp = {
       $.jPlayer.convertTime(event.jPlayer.status.currentTime) + 
       "/" +
       $.jPlayer.convertTime(event.jPlayer.status.duration)
-    );
+    )
   },
   init: function() 
   {
@@ -131,9 +131,9 @@ var mp = {
       type: "POST",
     })
   },
-};
+}
 
-$(document).ready(mp.init);
+$(document).ready(mp.init)
 
 <% songlist ||= [] %>
 var songs = [
@@ -150,13 +150,13 @@ var songs = [
   
   <div id='controls'>
     Media Player<br/>
-    <a href='#' onclick='mp.play();return false;'>Play</a>
-    | <a href='#' onclick='mp.pause();return false;'>Pause</a>
-    | <a href='#' id='random' onclick='mp.random();return false;'><s>Random</s></a>
-    | <a href='#' id='repeat' onclick='mp.repeat();return false;'><s>Repeat</s></a>
-    | <a href='#' onclick="mp.on_song_finished();return false;">Next</a>
+    <a href='#' onclick='mp.play();return false'>Play</a>
+    | <a href='#' onclick='mp.pause();return false'>Pause</a>
+    | <a href='#' id='random' onclick='mp.random();return false'><s>Random</s></a>
+    | <a href='#' id='repeat' onclick='mp.repeat();return false'><s>Repeat</s></a>
+    | <a href='#' onclick="mp.on_song_finished();return false">Next</a>
     <div width='10em' id='time'></div>
-    <a onclick='mp.rate_up_playing();  return false;'><%=image_tag("rate_up.png",   :alt => "+", :size => "16x16")%></a>
+    <a onclick='mp.rate_up_playing();return false'><%=image_tag("rate_up.png",   :alt => "+", :size => "16x16")%></a>
     <a onclick='mp.rate_down_playing();return false;'><%=image_tag("rate_down.png", :alt => "-", :size => "16x16")%></a>
   </div>
   <div id='now_playing'></div>
