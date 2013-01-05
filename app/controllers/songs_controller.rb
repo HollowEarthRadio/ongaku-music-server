@@ -44,12 +44,15 @@ class SongsController < ApplicationController
     end
   end
 
+  def calc_recently_uploaded
+    @recently_uploaded = Song.where('created_at >= ?',Time.new - 60*60*24).reverse
+  end
+  before_filter :calc_recently_uploaded, :only => [ :new, :new_placehold, :webcopy ]
+
   # GET /songs/new
   # GET /songs/new.json
   def new
     @song = Song.new
-
-    @recently_uploaded = Song.where('created_at >= ?',Time.new - 60*60*24).reverse
 
     respond_to do |format|
       format.html # new.html.erb
@@ -67,8 +70,6 @@ class SongsController < ApplicationController
     @song.name = params[:name]
     @song.track = params[:track]
     @song.disk = params[:disk]
-
-    @recently_uploaded = Song.where('created_at >= ?',Time.new - 60*60*24).reverse
 
     respond_to do |format|
       format.html # new.html.erb
@@ -131,6 +132,13 @@ class SongsController < ApplicationController
         format.json { render json: @song.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def webcopy
+    @song = Song.new(params[:song])
+    @recently_uploaded = Song.where('created_at >= ?',Time.new - 60*60*24).reverse
+  end
+  def dowebcopy
   end
 
   # PUT /songs/1

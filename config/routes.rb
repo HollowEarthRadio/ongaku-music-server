@@ -14,6 +14,8 @@ OngakuMusicServer::Application.routes.draw do
       get 'recent'
       get 'favorites'
       get 'new_placehold'
+      get 'webcopy'
+      post 'dowebcopy'
     end
   end
 
