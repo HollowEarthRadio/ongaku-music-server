@@ -8,6 +8,16 @@ class Song < ActiveRecord::Base
   belongs_to :artist
   belongs_to :album
 
+  def Song.minimum_rating()
+    @@minimum_rating ||= Song.minimum("rating")
+  end
+  def Song.maximum_rating()
+    @@maximum_rating ||= Song.maximum("rating")
+  end
+  def rating_percent()
+    ( ( self.rating || 0 ).to_i - Song.minimum_rating ).to_f / ( Song.maximum_rating - Song.minimum_rating )
+  end
+
   def artist_name=( artist_name )
     # Make sure the ActiveRecord gets the artist name
     super
