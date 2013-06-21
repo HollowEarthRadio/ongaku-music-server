@@ -5,6 +5,7 @@ class Song < ActiveRecord::Base
   attr_accessible :name, :media_filename
   attr_accessible :track, :disk
   attr_accessible :origional_filename
+  attr_accessible :license
   belongs_to :artist
   belongs_to :album
 
