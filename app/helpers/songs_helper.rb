@@ -1,8 +1,8 @@
 module SongsHelper
   def rating( song )
     rate = ( song.rating || 0 ).to_i
-    r = ( rate - Song.minimum("rating") ).to_f / ( Song.maximum("rating") - Song.minimum("rating") ) * 5.0
-    
+    r = song.rating_percent * 5.0
+
     o = ""
     o << "<div id='song_#{song.id}_rating' class='song_rating'>"
     o << "<span class='stars'>"
