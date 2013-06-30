@@ -3,7 +3,7 @@ Ongaku Music Server
 
 The Ongaku Music Server is a web-based music player inspired by Grooveshark.  I wrote this because I wanted to be able
 to have a streaming music server that I controlled what music was available.  If you find this software useful, please fork
-this project on github (https://github.com/teknomunk/ongaku-music-server).
+this project on github (https://github.com/teknomunk/ongaku-music-server) and make whatever changes you feel are useful.
 
 Features
 --------
@@ -19,6 +19,14 @@ License
 
 This software is copywrite 2012 Bradley C. Pesicka, but may be redistributed under the GNU Public License (v2).
 A copy of this license can be found in GPL\_v2.txt.
+
+Installation
+------------
+
+After downloading the source code for the music server, run the command "bundle exec rake db:migrate" to create the
+database.
+
+To run the server manually, run the command "bundle exec rails server".
 
 Code and Asset Licensing
 ------------------------
