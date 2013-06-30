@@ -1,4 +1,4 @@
-<h1>Editing song</h1>
+<% @title = "Edit #{@song.artist.name} - #{@song.name}" %>
 
 <%= form_for(@song) do |f| %>
   <% if @song.errors.any? %>

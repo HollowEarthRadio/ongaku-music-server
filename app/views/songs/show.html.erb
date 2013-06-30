@@ -1,6 +1,4 @@
-<%= render 'nav' %>
-<p id="notice"><%= notice %></p>
-
+<% @title = "Song Data: #{@song.artist.name} - #{@song.name}"
 <p>
   <b>Name:</b>
   <%= @song.name %>

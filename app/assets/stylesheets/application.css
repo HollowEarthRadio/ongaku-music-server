@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require_tree .
+ *= require scaffold.css
  */
 
 div.player_container
@@ -51,12 +52,49 @@ td
   border-spacing: 0px;
 }
 
-a
-{
-  color: black;
-}
-
 tr.songs a
 {
   font-size: 12px;
+}
+
+/* Menu styling */
+.menu, menu.ul 
+{
+  list-style: none;
+}
+.menu 
+{
+  float: left;
+}
+.menu > li 
+{
+  float: left;
+}
+.menu li a 
+{
+  display: block;
+  height: 2em;
+  line-height: 2em;
+  padding: 0 1.5em;
+  text-decoration: none;
+}
+.menu ul
+{
+  position: absolute;
+  display: none;
+  z-index: 999;
+  list-style: none;
+  background-color: white;
+}
+.menu ul li a
+{
+  width: 100px;
+}
+.menu li:hover ul 
+{
+  display: block;
+}
+table
+{
+  width: 100%;
 }

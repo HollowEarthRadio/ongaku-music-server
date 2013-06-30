@@ -1,5 +1,4 @@
-<h1>New song</h1>
-<%= render 'nav' %>
+<% @title = "Upload Song" %>
 
 <%= form_for(@song, :url => { :action => "dowebcopy" } ) do |f| %>
   <% if @song.errors.any? %>
