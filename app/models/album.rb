@@ -14,6 +14,15 @@ class Album < ActiveRecord::Base
   def artist_name=( name )
     self.artist = Artist.where( "name = ?", name ).first
   end
+  def Album::garbage_collect()
+    # Delete all albums that have no songs.  Note: this will grab albums that were manually created and have no placeholders
+    Album.all.select {|album|
+      album.songs.count == 0
+    }.each {|album|
+      puts "[DELETE] Album:#{ album.artist ? "#{album.artist.name} -" : "" }#{album.title}"
+      album.delete
+    }
+  end
 #  def artist=(name)
 #    a = Artist.where( "name = ?", name )
 #    if( a )
