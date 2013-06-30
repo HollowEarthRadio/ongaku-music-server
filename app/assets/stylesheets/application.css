@@ -67,6 +67,7 @@ tr.songs a
 .menu 
 {
   float: left;
+  width: 100%;
 }
 .menu > li 
 {
@@ -102,4 +103,9 @@ tr.songs a
 table
 {
   width: 100%;
+}
+
+tr:hover
+{
+  background-color: #CCC;
 }
