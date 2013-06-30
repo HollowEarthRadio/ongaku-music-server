@@ -21,6 +21,7 @@ OngakuMusicServer::Application.routes.draw do
 
   namespace :system do
     get 'plugins'
+    get 'license'
   end
 
 
