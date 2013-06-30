@@ -88,7 +88,7 @@ tr.songs a
   z-index: 999;
   list-style: none;
   background-color: white;
-  margin-top: 1px;
+  border-top: 1px solid black;
   border-left: 1px solid black;
   border-bottom: 1px solid black;
 }
