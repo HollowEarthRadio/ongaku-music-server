@@ -1,3 +1,4 @@
+<%= render 'nav' %>
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -23,6 +24,11 @@
 <p>
   <b>Download link:</b>
   <a href="/media/<%= @song.media_filename %>">file</a>
+</p>
+
+<p>
+  <b>License:</b>
+  <%= @song.license %>
 </p>
 
 <h1>Media Tags</h1>

@@ -37,6 +37,11 @@
     <%= f.label :disk, "Disk" %>
     <%= f.number_field :disk %>
   </p>
+  <p>
+    <%= f.label :license, "License" %>
+    <%= f.select( "license", options_for_select(Ongaku::License.list(), @song.license)) 
+    %>
+  </p>
   <div class="actions">
     <%= f.submit %>
   </div>
