@@ -20,6 +20,9 @@ class Song < ActiveRecord::Base
   end
 
   def artist_name=( artist_name )
+    # Make sure leading and trailing whitespace doesn't create multiple copies of an artist
+    artist_name.chomp!
+
     # Make sure the ActiveRecord gets the artist name
     super
 
@@ -61,6 +64,9 @@ class Song < ActiveRecord::Base
   end
 
   def album_name=( album_name )
+    # Make sure leading and trailing whitespace doesn't create multiple copies of an album
+    album_name.chomp!
+
     # Make sure the ActiveRecord gets the album name
     super
 
