@@ -122,6 +122,8 @@ class SongsController < ApplicationController
   # POST /songs.json
   def create
     @song = Song.new(params[:song])
+    @song.artist_name = @song.artist_name # HACK
+    @song.album_name = @song.album_name   # HACK
 
     respond_to do |format|
       if @song.save
