@@ -1,5 +1,5 @@
-<% @javascript = ["application"] %>
-<% @stylesheet = ["scaffold"] %>
+<% include_javascript("application") %>
+<% include_stylesheet("scaffold") %>
 <% body = yield %>
 <!DOCTYPE html>
 <html>
@@ -10,10 +10,10 @@
     <title>Ongaku Music Server</title>
   <% end %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <% @stylesheet.each {|sheet| %>
+  <% stylesheet_links.each {|sheet| %>
     <%= stylesheet_link_tag sheet %>
   <% } %>
-  <% @javascript.each {|script| %>
+  <% javascript_links.each {|script| %>
     <%= javascript_include_tag script %>
   <% } %>
   <%= csrf_meta_tags %>

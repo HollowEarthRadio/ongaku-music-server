@@ -38,4 +38,24 @@ module ApplicationHelper
       item.gsub(/^.*app\/views\//,'').gsub("_nav_top_heading.html.erb","nav_top_heading")
     }
   end
+
+  def include_javascript( *links )
+    @javascripts ||= {}
+    links.each {|link|
+      @javascripts[link] = true
+    }
+  end
+  def javascript_links()
+    @javascripts.map {|k,v| k }
+  end
+
+  def include_stylesheet( *links )
+    @stylesheets ||= {}
+    links.each {|link|
+      @stylesheets[link] = true
+    }
+  end
+  def stylesheet_links()
+    @stylesheets.map {|k,v| k }
+  end
 end
