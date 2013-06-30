@@ -13,7 +13,11 @@
 <% @albums.each do |album| %>
   <tr>
     <td><%= album.title %></td>
-    <td><%= link_to album.artist.name, album.artist %></td>
+    <% if album.artist %>
+      <td><%= link_to album.artist.name, album.artist %></td>
+    <% else %>
+      <td>[ no artist ]</td>
+    <% end %>
     <td><%= album.songs.size %></td>
     <td><%= link_to 'Show', album %></td>
     <td><%= link_to 'Edit', edit_album_path(album) %></td>

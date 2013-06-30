@@ -11,6 +11,9 @@ class Album < ActiveRecord::Base
       nil
     end
   end
+  def artist_name=( name )
+    self.artist = Artist.where( "name = ?", name ).first
+  end
 #  def artist=(name)
 #    a = Artist.where( "name = ?", name )
 #    if( a )
