@@ -3,15 +3,6 @@
   lambda { link_to 'Edit', edit_playlist_path(@playlist) }
 ] %>
 
-<ol>
-  <% @playlist.playlist_entries.each_with_index {|entry,i| %>
-  <li id='song_<%=i%>'>
-    <%= link_to "#{entry.song.artist} - #{entry.song.name}", entry.song %>
-    <%= link_to "Remove", entry, method: :delete %>
-  </li>
-  <% } %>
-</ol>
-
-<% songs = @playlist.playlist_entries %>
+<% songs = @playlist.playlist_entries.map {|entry| entry.song } %>
 <%= render 'songs/songlist', :songs => songs %>
 

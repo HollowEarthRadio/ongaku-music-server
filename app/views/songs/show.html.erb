@@ -1,7 +1,18 @@
 <% @title = "Song Data: #{@song.artist.name} - #{@song.name}" %>
 
+<% code = capture do %>
+  <form id='add_to_playlist' method='post' action='<%= playlist_entries_path %>'>
+    <input type='hidden' name='song_id' value='<%= @song.id %>' />
+    <%= select_tag( "playlist_id", options_for_select( 
+      Hash[ *Playlist.find(:all).map {|playlist| [playlist.title,playlist.id] }.flatten] 
+    )) %>
+    <a href='#' onclick='$("#add_to_playlist").submit()'>Add to playlist</a>
+  </form>
+<% end %>
+
 <% @page_actions = [
-  lambda { link_to 'Edit', edit_song_path(@song) }
+  lambda { link_to 'Edit', edit_song_path(@song) },
+  lambda { code }
 ] %>
 
 <p>
@@ -34,7 +45,7 @@
   <%= @song.license %>
 </p>
 
-<h1>Media Tags</h1>
+<h2>Media Tags</h2>
 <p>
   <ul>
   <% @song.id3_tags.each do |tag| %>
@@ -43,19 +54,12 @@
   </ul>
 </p>
 
-<script type="text/javascript">
-</script>
-<%= render "shared/player" %>
-
-<p>
-  Add to playlist:<br/>
-  <% Playlist.find(:all).each {|playlist| %>
-    <form id='add_playlist_entry_<%= playlist.id %>' method='post' action='/playlist_entries'>
-      <input type='hidden' name='song_id' value='<%= @song.id %>' />
-      <input type='hidden' name='playlist_id' value='<%= playlist.id %>' />
-      <a href='#' onclick='$("#add_playlist_entry_<%= playlist.id %>").submit()'
-        >Add to <%= playlist.title %></a>
-    </form>
+<h2>Ongaku Tags</h2>
+<ul>
+  <% @song.tags.each {|key,value| %>
+    <li><%= key %> = <%= value %></li>
   <% } %>
-</p>
+</ul>
+
+<%= render "shared/player" %>
 
