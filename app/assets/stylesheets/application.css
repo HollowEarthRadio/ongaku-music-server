@@ -13,6 +13,43 @@
  *= require scaffold.css
  */
 
+html,body
+{
+  padding: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow-x: hidden;
+}
+.page-container
+{
+  min-height: 100%;
+  position: relative;
+  margin: 0;
+}
+.page-header
+{
+  width: 100%;
+}
+.page-body
+{
+  padding-bottom: 80px;
+}
+.page-footer-container
+{
+  position: absolute;
+  bottom: 0;
+  height: 80px;
+  width: 100%;
+}
+.page-footer
+{
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+  text-align: center;
+}
+
 div.player_container
 {
   position:fixed;
