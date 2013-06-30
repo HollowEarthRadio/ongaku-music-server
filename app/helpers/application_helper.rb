@@ -38,6 +38,21 @@ module ApplicationHelper
       item.gsub(/^.*app\/views\//,'').gsub("_nav_top_heading.html.erb","nav_top_heading")
     }
   end
+  def render_plugable( view_path )
+    base,view = *view_path.split("/")
+
+    result = raw("")
+    
+    ActionController::Base.view_paths.to_a.reverse.map {|path|
+      Dir.glob( File.join( path, base, "_#{view}*.html.erb" ) ).sort
+    }.flatten.map {|item|
+      item.gsub(/^.*app\/views\//,'').split(".").first.gsub("/_","/")
+    }.each {|item|
+      result = raw("#{result}#{render item}")
+    }
+
+    result
+  end
 
   def include_javascript( *links )
     @javascripts ||= {}
