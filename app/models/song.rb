@@ -21,7 +21,8 @@ class Song < ActiveRecord::Base
 
   def artist_name=( artist_name )
     # Make sure leading and trailing whitespace doesn't create multiple copies of an artist
-    artist_name.chomp!
+    artist_name.gsub!(/^ */,'')
+    artist_name.gsub!(/ *$/,'')
 
     # Make sure the ActiveRecord gets the artist name
     super
@@ -65,7 +66,8 @@ class Song < ActiveRecord::Base
 
   def album_name=( album_name )
     # Make sure leading and trailing whitespace doesn't create multiple copies of an album
-    album_name.chomp!
+    album_name.gsub!(/^ */,'')
+    album_name.gsub!(/ *$/,'')
 
     # Make sure the ActiveRecord gets the album name
     super
