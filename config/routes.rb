@@ -19,6 +19,9 @@ OngakuMusicServer::Application.routes.draw do
     end
   end
 
+  namespace :system do
+    get 'plugins'
+  end
 
 
   # The priority is based upon order of creation:

@@ -1,0 +1,17 @@
+<% @title = "Plugins" %>
+
+<table>
+  <tr>
+    <th>Plugin Name</th>
+    <th>Description</th>
+    <th>Version</th>
+  </tr>
+<% Ongaku::Plugin.all.each {|plugin| %>
+  <tr>
+    <td><%= plugin.name %></td>
+    <td><%= plugin.description %></td>
+    <td><%= plugin.version %></td>
+    <td><%= link_to "Info", plugin.url %></td>
+  </tr>
+<% } %>
+</table>
