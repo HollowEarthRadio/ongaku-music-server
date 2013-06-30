@@ -1,4 +1,7 @@
 <% @title = "Edit #{@song.artist.name} - #{@song.name}" %>
+<% @page_actions = [
+  lambda { link_to 'Show', @song }
+] %>
 
 <%= form_for(@song) do |f| %>
   <% if @song.errors.any? %>
@@ -47,5 +50,3 @@
   </div>
 <% end %>
 
-<%= link_to 'Show', @song %> |
-<%= link_to 'Back', songs_path %>

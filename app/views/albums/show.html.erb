@@ -1,5 +1,13 @@
-<p id="notice"><%= notice %></p>
-
+<% 
+  if @album.artist
+    @title = "Album Information: #{@album.artist.name} - #{@album.title}"
+  else 
+    @title = "Album Information: #{@album.title}"
+  end
+  @page_actions = [
+    lambda { link_to 'Edit', edit_album_path(@album) }
+  ]
+%>
 <p>
   <b>Title:</b>
   <%= @album.title %>

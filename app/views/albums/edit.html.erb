@@ -1,6 +1,8 @@
-<h1>Editing album</h1>
+<% @title = "Edit #{@album.title}" %>
+<% @page_actions = [
+  lambda { link_to 'Show', @album },
+]
+%>
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @album %> |
-<%= link_to 'Back', albums_path %>

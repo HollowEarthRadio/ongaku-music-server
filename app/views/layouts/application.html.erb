@@ -27,7 +27,14 @@
   <h1>Ongaku Music Server</h1>
 <% end %>
 <ul class='menu'>
-<% nav_items.each {|item| %><li><%= render item %></li><% } %>
+  <% nav_items.each {|item| %><li><%= render item %></li><% } %>
+  <% if @page_actions %>
+    <li><a href='#'>Actions</a>
+      <ul>
+        <% @page_actions.each {|action| %><li><%= action.call() %></li><% } %>
+      </ul>
+    </li>
+  <% end %>
 </ul>
 <div style='float:clear;'></div>
 <p id="notice"><%= notice %></p>

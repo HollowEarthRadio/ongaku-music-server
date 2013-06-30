@@ -1,4 +1,9 @@
-<% @title = "Song Data: #{@song.artist.name} - #{@song.name}"
+<% @title = "Song Data: #{@song.artist.name} - #{@song.name}" %>
+
+<% @page_actions = [
+  lambda { link_to 'Edit', edit_song_path(@song) }
+] %>
+
 <p>
   <b>Name:</b>
   <%= @song.name %>
@@ -54,5 +59,3 @@
   <% } %>
 </p>
 
-<%= link_to 'Edit', edit_song_path(@song) %> |
-<%= link_to 'Back', songs_path %>

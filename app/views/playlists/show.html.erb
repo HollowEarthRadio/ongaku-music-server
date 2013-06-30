@@ -1,9 +1,4 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <b>Title:</b>
-  <%= @playlist.title %>
-</p>
+<% @title = "Playlist #{@playlist.title}" %>
 
 <ol>
   <% @playlist.playlist_entries.each_with_index {|entry,i| %>
