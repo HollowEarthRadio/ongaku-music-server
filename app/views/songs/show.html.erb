@@ -37,7 +37,7 @@
 <h1>Media Tags</h1>
 <p>
   <ul>
-  <% @song.tags.each do |tag| %>
+  <% @song.id3_tags.each do |tag| %>
     <li><%= tag[0] %>: <%= tag[1] %></li>
   <% end %>
   </ul>

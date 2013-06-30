@@ -9,6 +9,57 @@ class Song < ActiveRecord::Base
   belongs_to :artist
   belongs_to :album
 
+  class TagProxy
+    def initialize( song )
+      @song = song
+      @tag_cache = {}
+      @dirty = {}
+    end
+
+    include Enumerable
+    def each()
+      Tag.where( :song_id => @song.id ).each {|tag|
+        yield( tag.key, tag.value )
+      }
+    end
+
+    def []( key )
+      return @tag_cache[key] if @tag_cache.include?( key )
+
+      @tag_cache[key] = Tag.where( :song_id => @song.id, :key => key ).first.value
+    end
+    def []=( key, value )
+      @dirty[key] = true if @tag_cache[key] != value
+      @tag_cache[key] = value
+
+      @song.on_save {
+        self.save!
+      }
+    end
+
+    def save!()
+      @dirty.each {|k,v|
+        if( v == true )
+          tag = Tag.where( :song_id => @song.id, :key => k ).first
+          if !tag
+            tag = Tag.new
+            tag.song_id = @song.id
+            tag.key = k
+          end
+          tag.value = @tag_cache[k]
+          if tag.save!
+            @dirty[k] = false
+          end
+        end
+      }
+    end
+
+  end
+
+  def tags()
+    @tags_proxy ||= TagProxy.new(self)
+  end
+
   def Song.minimum_rating()
     @@minimum_rating ||= Song.minimum("rating")
   end
@@ -40,7 +91,8 @@ class Song < ActiveRecord::Base
       if( artists.size == 0 )
         # Go ahead and create one now
         artist = Artist.new({"name" => artist_name })
-        artist.save!
+        @artist = artist
+        self.on_save { @artist.save! }
       else
         # otherwise, use the first artist returned
         artist = artists[0]
@@ -87,7 +139,8 @@ class Song < ActiveRecord::Base
     if( album_artists.size == 0 ) 
       # Create one if it does not exist
       album_artist = Artist.new( :name => album_artist_name )
-      album_artist.save!
+      @album_artist = album_artist
+      self.on_save { @album_artist.save! }
     else
       # Use the first entry if it does exist
       album_artist = album_artists[0]
@@ -97,7 +150,8 @@ class Song < ActiveRecord::Base
     albums = Album.where( :title => album_name, :artist_id => album_artist )
     if( albums.size == 0 )
       album = Album.new({"title"=> album_name, "artist" => album_artist})
-      album.save!
+      @album = album
+      self.on_save {|song| @album.save! }
     else
       album = albums[0]
     end
@@ -189,7 +243,7 @@ class Song < ActiveRecord::Base
     end
   end
 
-  def tags()
+  def id3_tags()
     return [] if !has_media?
 
     require 'taglib'
@@ -225,5 +279,18 @@ class Song < ActiveRecord::Base
   end
   def rate_down()
     self.rating = ( self.rating || 0 ) - 1
+  end
+
+  def save!()
+    super
+    @save_handlers.each {|block| block.call }
+  end
+  def save()
+    super
+    @save_handlers.each {|block| block.call }
+  end
+  def on_save( &block )
+    @save_handlers ||= []
+    @save_handlers.push(block)
   end
 end
