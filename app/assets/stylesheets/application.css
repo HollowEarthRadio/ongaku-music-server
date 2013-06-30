@@ -58,9 +58,11 @@ tr.songs a
 }
 
 /* Menu styling */
-.menu, menu.ul 
+.menu, .menu.ul 
 {
   list-style: none;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
 }
 .menu 
 {
@@ -85,6 +87,9 @@ tr.songs a
   z-index: 999;
   list-style: none;
   background-color: white;
+  margin-top: 1px;
+  border-left: 1px solid black;
+  border-bottom: 1px solid black;
 }
 .menu ul li a
 {

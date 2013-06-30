@@ -8,7 +8,7 @@
     <th></th>
   </tr>
 
-<% @artists.each do |artist| %>
+<% @artists.sort_by {|artist| artist.name || "" }.each do |artist| %>
   <tr>
     <td><%= artist.name %></td>
     <td><%= link_to 'Show', artist %></td>

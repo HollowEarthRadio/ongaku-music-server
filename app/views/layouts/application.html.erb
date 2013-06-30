@@ -1,3 +1,5 @@
+<% @javascript = ["application"] %>
+<% @stylesheet = ["scaffold"] %>
 <% body = yield %>
 <!DOCTYPE html>
 <html>
@@ -7,9 +9,13 @@
   <% else %>
     <title>Ongaku Music Server</title>
   <% end %>
-  <%= stylesheet_link_tag    "scaffold" %>
   <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <% @stylesheet.each {|sheet| %>
+    <%= stylesheet_link_tag sheet %>
+  <% } %>
+  <% @javascript.each {|script| %>
+    <%= javascript_include_tag script %>
+  <% } %>
   <%= csrf_meta_tags %>
 </head>
 <body>
@@ -20,9 +26,9 @@
 <% else %>
   <h1>Ongaku Music Server</h1>
 <% end %>
-<div>
-<%= render 'shared/nav' %>
-</div>
+<ul class='menu'>
+<% nav_items.each {|item| %><li><%= render item %></li><% } %>
+</ul>
 <div style='float:clear;'></div>
 <p id="notice"><%= notice %></p>
 
