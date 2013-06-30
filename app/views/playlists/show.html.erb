@@ -1,4 +1,7 @@
 <% @title = "Playlist #{@playlist.title}" %>
+<% @page_actions = [
+  lambda { link_to 'Edit', edit_playlist_path(@playlist) }
+] %>
 
 <ol>
   <% @playlist.playlist_entries.each_with_index {|entry,i| %>
@@ -9,14 +12,6 @@
   <% } %>
 </ol>
 
-<script type="text/javascript">
-var songs = [
-  <% @playlist.playlist_entries.each {|entry|%>
-    "/media/<%= entry.song.media_filename %>",
-  <% } %>
-];
-</script>
-<%= render 'shared/player' %>
+<% songs = @playlist.playlist_entries %>
+<%= render 'songs/songlist', :songs => songs %>
 
-<%= link_to 'Edit', edit_playlist_path(@playlist) %> |
-<%= link_to 'Back', playlists_path %>
