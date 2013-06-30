@@ -8,13 +8,15 @@
 
 <p>
   <b>Artist:</b>
-  <%= link_to @album.artist.name, @album.artist %>
+  <% if @album.artist %>
+    <%= link_to @album.artist.name, @album.artist %>
+  <% end %>
 </p>
 
 <% songs = @album.songs.sort_by {|s| "%04i %04i" % [(s.disk||1),s.track] } %>
 <%= render 'songs/songlist', :songs => songs %>
 <%= link_to 'Add placeholder', new_placehold_songs_path( 
-  :artist_name => @album.artist.name,
+  :artist_name => @album.artist ? @album.artist.name : "",
   :album_name => @album.title,
-  :track => @album.songs.map {|song| song.track || 0 }.reduce {|lhs,rhs| lhs > rhs ? lhs : rhs } + 1
+  :track => (@album.songs.map {|song| song.track || 0 }.reduce {|lhs,rhs| lhs > rhs ? lhs : rhs } || 0 ) + 1
 ) %>

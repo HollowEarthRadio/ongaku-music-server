@@ -9,7 +9,7 @@
 <h1>Albums</h1>
 <p>
   <ul>
-  <% @artist.albums.sort_by {|album| album.title }.each do |album| %>
+  <% @artist.albums.select {|album| album.songs.count > 1 }.sort_by {|album| album.title }.each do |album| %>
     <li><%= link_to album.title, album %>
   <% end %>
   </ul>
