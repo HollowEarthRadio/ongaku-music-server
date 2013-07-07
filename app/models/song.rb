@@ -9,6 +9,17 @@ class Song < ActiveRecord::Base
   belongs_to :artist
   belongs_to :album
 
+  def Song.find_with_tags( tags )
+    where = Hash[ *tags.map {|k,v| [ :key, k, :value, v ] }.flatten ]
+    Tag.where( where ).map {|tag| tag.song }
+  end
+  def Song.minimum_rating()
+    @@minimum_rating ||= Song.minimum("rating")
+  end
+  def Song.maximum_rating()
+    @@maximum_rating ||= Song.maximum("rating")
+  end
+
   class TagProxy
     def initialize( song )
       @song = song
@@ -60,12 +71,6 @@ class Song < ActiveRecord::Base
     @tags_proxy ||= TagProxy.new(self)
   end
 
-  def Song.minimum_rating()
-    @@minimum_rating ||= Song.minimum("rating")
-  end
-  def Song.maximum_rating()
-    @@maximum_rating ||= Song.maximum("rating")
-  end
   def rating_percent()
     ( ( self.rating || 0 ).to_i - Song.minimum_rating ).to_f / ( Song.maximum_rating - Song.minimum_rating )
   end
