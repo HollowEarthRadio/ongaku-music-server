@@ -68,33 +68,6 @@ div.player_container #now_playing
 {
   clear: both;
 }
-td.spacer
-{
-  width: 50px;
-}
-
-tr.songs:hover
-{
-  background-color: #CCC;
-}
-tr.even-song
-{
-  background-color: #EEE;
-}
-tr.song_playing {
-  background-color: #ADD;
-}
-
-td
-{
-  padding: 0px;
-  border-spacing: 0px;
-}
-
-tr.songs a
-{
-  font-size: 12px;
-}
 
 /* Menu styling */
 .menu, .menu.ul 
@@ -139,13 +112,48 @@ tr.songs a
 {
   display: block;
 }
+
+/* Table styling */
 table
 {
   width: 100%;
   border-collapse: collapse;
 }
 
+tr.songs:hover
+{
+  background-color: #CCC;
+}
+tr.even-song
+{
+  background-color: #EEE;
+}
+tr.song_playing {
+  background-color: #ADD;
+}
+tr.songs a
+{
+  font-size: 12px;
+}
 tr:hover
 {
   background-color: #CCC;
 }
+
+td
+{
+  padding: 0px;
+  margin: 0px;
+  border-spacing: 0px;
+}
+tr.songs td.c1 {
+  width: 3em;
+}
+tr.songs td.c5 {
+  width: 50px;
+}
+tr.songs td.c6 {
+  width: 7em;
+}
+
+
