@@ -283,11 +283,11 @@ class Song < ActiveRecord::Base
 
   def save!()
     super
-    @save_handlers.each {|block| block.call }
+    (@save_handlers||[]).each {|block| block.call }
   end
   def save()
     super
-    @save_handlers.each {|block| block.call }
+    (@save_handlers||[]).each {|block| block.call }
   end
   def on_save( &block )
     @save_handlers ||= []

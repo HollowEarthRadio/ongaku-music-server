@@ -142,6 +142,7 @@ tr.songs a
 table
 {
   width: 100%;
+  border-collapse: collapse;
 }
 
 tr:hover
