@@ -10,6 +10,7 @@ OngakuMusicServer::Application.routes.draw do
   resources :songs do
     post 'rate_up'
     post 'rate_down'
+    post 'set_tag'
     collection do
       get 'recent'
       get 'favorites'
