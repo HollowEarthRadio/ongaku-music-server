@@ -32,7 +32,13 @@
       <% if @page_actions %>
         <li><a href='#'>Actions</a>
           <ul>
-            <% @page_actions.each {|action| %><li><%= action.call() %></li><% } %>
+            <% @page_actions.each {|action| 
+              if action == :separator
+                %><li><hr /></li><%
+              else
+                %><li><%= action.call() %></li><%
+              end 
+            } %>
           </ul>
         </li>
       <% end %>
@@ -42,6 +48,7 @@
     <div style="clear:both"></div>
     <p id="notice"><%= notice %></p>
     <%= body %>
+    <div style="clear:both"></div>
   </div>
   <div class='page-footer-container'>
     <div class='page-footer'>

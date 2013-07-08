@@ -69,6 +69,11 @@ div.player_container #now_playing
   clear: both;
 }
 
+div.float-left
+{
+  float: left;
+}
+
 /* Menu styling */
 .menu, .menu.ul 
 {

@@ -118,6 +118,28 @@ class SongsController < ApplicationController
     end
   end
 
+  def set_tag
+    @song = Song.find(params[:song_id])
+    key = params[:key]
+    value = params[:value]
+    @song.tags[key] = value if key and value
+    
+    respond_to do |format|
+      if @song.save
+        format.json do
+          render json: {
+            :id => @song.id,
+            :key => key,
+            :value => value
+          }
+        end
+        format.html do
+          redirect_to @song, notice: "Song tag '#{key}' was set to '#{value}'"
+        end
+      end
+    end
+  end
+
   # POST /songs
   # POST /songs.json
   def create

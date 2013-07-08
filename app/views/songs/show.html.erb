@@ -1,17 +1,18 @@
 <% @title = "Song Data: #{@song.artist.name} - #{@song.name}" %>
 
 <% code = capture do %>
-  <form id='add_to_playlist' method='post' action='<%= playlist_entries_path %>'>
-    <input type='hidden' name='song_id' value='<%= @song.id %>' />
-    <%= select_tag( "playlist_id", options_for_select( 
-      Hash[ *Playlist.find(:all).map {|playlist| [playlist.title,playlist.id] }.flatten] 
-    )) %>
-    <a href='#' onclick='$("#add_to_playlist").submit()'>Add to playlist</a>
-  </form>
+  <% Playlist.all.each_with_index {|playlist,i| %>
+    <form id='add_to_playlist_<%=i%>' method='post' action='<%= playlist_entries_path %>'>
+      <input type='hidden' name='song_id' value='<%= @song.id %>' />
+      <input type='hidden' name='playlist_id' value='<%= playlist.id %>' />
+      <a href='#' onclick='$("#add_to_playlist_<%=i%>").submit()'>Add to <%= playlist.title %></a>
+    </form>
+  <% } %>
 <% end %>
 
 <% @page_actions = [
   lambda { link_to 'Edit', edit_song_path(@song) },
+  :separator,
   lambda { code }
 ] %>
 
@@ -56,10 +57,21 @@
 
 <h2>Ongaku Tags</h2>
 <ul>
-  <% @song.tags.each {|key,value| %>
+  <% @song.tags.to_a.sort.each {|key,value| %>
     <li><%= key %> = <%= value %></li>
   <% } %>
 </ul>
+<form id='add_tag' method='post' action='<%= song_set_tag_path(@song) %>'>
+  <div class='float-left'>
+    <b>Tag</b><br/>
+    <td><input type='text' name='key' />
+  </div>
+  <div class='float-left'>
+    <b>Value</b><br/>
+    <input type='text' name='value' />
+    <a href='#' onclick='$("#add_tag").submit();return false;'>Add Tag</a>
+  </div>
+</form>
 
 <%= render_plugable( "songs/show" ) %>
 
