@@ -20,7 +20,7 @@
   <% end %>
 </p>
 
-<% songs = @album.songs.sort_by {|s| "%04i %04i" % [(s.disk||1),s.track] } %>
+<% songs = @album.songs.sort_by {|s| "%04i %04i" % [(s.disk||1),(s.track||9999)] } %>
 <%= render 'songs/songlist', :songs => songs %>
 <%= link_to 'Add placeholder', new_placehold_songs_path( 
   :artist_name => @album.artist ? @album.artist.name : "",

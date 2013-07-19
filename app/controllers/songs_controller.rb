@@ -163,6 +163,29 @@ class SongsController < ApplicationController
     @recently_uploaded = Song.where('created_at >= ?',Time.new - 60*60*24).reverse
   end
   def dowebcopy
+    url = params[:url]
+    puts url.inspect
+    Thread.new(url) {|url|
+      begin
+        require 'uri'
+
+        u = URI.parse("#{[url].flatten.first}")
+        puts "Webcopy: #{u}"
+        res = Net::HTTP.start( u.host, u.port ) {|http|
+          http.request( Net::HTTP::Get.new( u.path ) )
+        }
+        if "200" == res.code
+          song = Song.new()
+          song.upload = res.body
+          song.original_filename = "#{u}"
+          song.save!
+        end
+      rescue => e
+        puts e
+        puts e.backtrace
+      end
+    }
+    redirect_to webcopy_songs_path
   end
 
   # PUT /songs/1
